@@ -1,0 +1,188 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    /* Typography */
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-bengali: 'Hind Siliguri', 'Noto Sans Bengali', 'Inter', sans-serif;
+
+    /* Primary — BitMart Emerald */
+    --color-primary-50: #ecfdf5;
+    --color-primary-100: #d1fae5;
+    --color-primary-200: #a7f3d0;
+    --color-primary-500: #10b981;
+    --color-primary-600: #059669;
+    --color-primary-700: #047857;
+    --color-primary-800: #065f46;
+    --color-primary-900: #064e3b;
+
+    /* Secondary — warm sand */
+    --color-secondary-100: #fbf3e4;
+    --color-secondary-500: #d9a23e;
+    --color-secondary-700: #a06e1f;
+
+    /* AI accent — indigo (confined to AI surfaces) */
+    --color-ai-50: #eef2ff;
+    --color-ai-100: #e0e7ff;
+    --color-ai-200: #c7d2fe;
+    --color-ai-500: #6366f1;
+    --color-ai-600: #4f46e5;
+    --color-ai-700: #4338ca;
+    --color-ai-800: #3730a3;
+
+    /* Status */
+    --color-success-50: #f0fdf4;
+    --color-success-600: #16a34a;
+    --color-success-700: #15803d;
+    --color-warning-50: #fffbeb;
+    --color-warning-100: #fef3c7;
+    --color-warning-500: #f59e0b;
+    --color-warning-600: #d97706;
+    --color-warning-700: #b45309;
+    --color-error-50: #fef2f2;
+    --color-error-100: #fee2e2;
+    --color-error-600: #dc2626;
+    --color-error-700: #b91c1c;
+    --color-info-50: #f0f9ff;
+    --color-info-100: #e0f2fe;
+    --color-info-600: #0284c7;
+    --color-info-700: #0369a1;
+
+    /* Neutral — warm green-gray */
+    --color-neutral-0: #ffffff;
+    --color-neutral-50: #f8faf9;
+    --color-neutral-100: #f1f4f2;
+    --color-neutral-200: #e4e9e6;
+    --color-neutral-300: #cbd5d1;
+    --color-neutral-400: #9ca8a2;
+    --color-neutral-500: #74817b;
+    --color-neutral-600: #56625c;
+    --color-neutral-700: #3d4a44;
+    --color-neutral-800: #26312c;
+    --color-neutral-900: #16211c;
+    --color-neutral-950: #0c1511;
+
+    /* Radius */
+    --radius-xs: 4px;
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-2xl: 20px;
+    --radius-3xl: 24px;
+
+    /* Shadows */
+    --shadow-xs: 0 1px 2px rgb(16 24 20 / 0.05);
+    --shadow-sm: 0 1px 2px rgb(16 24 20 / 0.06), 0 2px 4px rgb(16 24 20 / 0.04);
+    --shadow-md: 0 2px 8px rgb(16 24 20 / 0.08), 0 1px 2px rgb(16 24 20 / 0.06);
+    --shadow-lg: 0 8px 24px rgb(16 24 20 / 0.12), 0 2px 8px rgb(16 24 20 / 0.06);
+
+    /* Breakpoints */
+    --breakpoint-sm: 480px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 1024px;
+    --breakpoint-xl: 1280px;
+    --breakpoint-2xl: 1440px;
+
+    /* Micro-interactions */
+    --animate-fade-in: fade-in 0.3s ease-out both;
+    --animate-fade-in-up: fade-in-up 0.4s ease-out both;
+    --animate-pop: pop 0.18s ease-out both;
+
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes fade-in-up {
+        from {
+            opacity: 0;
+            transform: translateY(8px);
+        }
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    @keyframes pop {
+        0% {
+            transform: scale(0.96);
+        }
+        60% {
+            transform: scale(1.04);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        @apply bg-white font-sans text-neutral-800 antialiased;
+        text-rendering: optimizeLegibility;
+    }
+
+    ::selection {
+        @apply bg-primary-100 text-primary-900;
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--color-primary-700);
+        outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
+    }
+}
+
+@layer components {
+    .skeleton {
+        position: relative;
+        overflow: hidden;
+        background: var(--color-neutral-200);
+    }
+
+    .skeleton::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        transform: translateX(-100%);
+        background-image: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.6), transparent);
+        animation: shimmer 1.5s infinite;
+    }
+
+    @keyframes shimmer {
+        100% {
+            transform: translateX(100%);
+        }
+    }
+}
+
+@utility no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
