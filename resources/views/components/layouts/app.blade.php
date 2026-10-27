@@ -1,10 +1,15 @@
+@props([
+    'title' => 'BitMart — Shop Online in Bangladesh',
+    'description' => 'BitMart — modern online shopping with smart AI assistance. Shop fashion, lifestyle, electronics and more across Bangladesh with fast delivery.',
+])
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>BitMart — Shop Online in Bangladesh</title>
-    <meta name="description" content="BitMart — modern online shopping with smart AI assistance. Shop fashion, lifestyle, electronics and more across Bangladesh with fast delivery.">
+    <title>{{ $title }}</title>
+    <meta name="description" content="{{ $description }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600&display=swap" rel="stylesheet">

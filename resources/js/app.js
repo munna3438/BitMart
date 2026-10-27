@@ -122,6 +122,7 @@ const bindWishlist = () => {
 /* ---------- Cart ---------- */
 const bindCart = () => {
     $$('[data-add-to-cart]').forEach((btn) => {
+        if (btn.hasAttribute('data-pdp-add')) return;
         btn.addEventListener('click', () => {
             bumpCount('cart');
             toast('Added to cart');
@@ -345,6 +346,371 @@ const bindSkeletons = () => {
     });
 };
 
+/* ---------- Formatting ---------- */
+const taka = (value) => `৳${Math.round(value).toLocaleString('en-US')}`;
+
+const setSummary = (key, value) => {
+    const el = $(`[data-summary="${key}"]`);
+    if (el) el.textContent = taka(value);
+};
+
+const setDeliverySummary = (value) => {
+    const el = $('[data-summary="delivery"]');
+    if (!el) return;
+    if (value > 0) {
+        el.textContent = taka(value);
+    } else {
+        el.innerHTML = '<span class="text-success-700">Free</span>';
+    }
+};
+
+/* ---------- Option groups (PDP) ---------- */
+const bindOptionGroup = (optionSelector, labelSelector, datasetKey) => {
+    const options = $$(optionSelector);
+    if (!options.length) return;
+
+    options.forEach((option) => {
+        option.addEventListener('click', () => {
+            options.forEach((o) => o.removeAttribute('data-selected'));
+            option.setAttribute('data-selected', 'true');
+            const label = $(labelSelector);
+            if (label) label.textContent = option.dataset[datasetKey] || option.textContent.trim();
+        });
+    });
+};
+
+/* ---------- Quantity stepper ---------- */
+const bindStepper = ({ minus, plus, input, min = 1, max = 10, onChange }) => {
+    const field = $(input);
+    const minusBtn = $(minus);
+    const plusBtn = $(plus);
+    if (!field) return;
+
+    const clamp = (value) => Math.min(max, Math.max(min, value || min));
+    const sync = () => {
+        const next = clamp(parseInt(field.value, 10));
+        field.value = next;
+        onChange?.(next);
+    };
+
+    minusBtn?.addEventListener('click', () => {
+        field.value = clamp(parseInt(field.value, 10) - 1);
+        onChange?.(parseInt(field.value, 10));
+    });
+    plusBtn?.addEventListener('click', () => {
+        field.value = clamp(parseInt(field.value, 10) + 1);
+        onChange?.(parseInt(field.value, 10));
+    });
+    field.addEventListener('change', sync);
+    field.addEventListener('blur', sync);
+};
+
+/* ---------- Product page ---------- */
+const bindProductPage = () => {
+    bindOptionGroup('[data-color-option]', '[data-color-label]', 'colorOption');
+    bindOptionGroup('[data-size-option]', '[data-size-label]', 'sizeOption');
+
+    bindStepper({
+        minus: '[data-qty-minus]',
+        plus: '[data-qty-plus]',
+        input: '[data-qty-input]',
+    });
+
+    $$('[data-tab]').forEach((tab) => {
+        tab.addEventListener('click', () => {
+            $$('[data-tab]').forEach((t) => {
+                t.removeAttribute('data-selected');
+                t.removeAttribute('aria-selected');
+            });
+            tab.setAttribute('data-selected', 'true');
+            tab.setAttribute('aria-selected', 'true');
+
+            $$('[data-tab-panel]').forEach((panel) => panel.classList.add('hidden'));
+            const panel = $(`[data-tab-panel="${tab.dataset.tab}"]`);
+            panel?.classList.remove('hidden');
+        });
+    });
+
+    const addBtn = $('[data-pdp-add]');
+    addBtn?.addEventListener('click', () => {
+        const qty = parseInt($('[data-qty-input]')?.value || '1', 10);
+        const size = $('[data-size-label]')?.textContent?.trim();
+        const color = $('[data-color-label]')?.textContent?.trim();
+        bumpCount('cart');
+        toast(`Added to cart${qty > 1 ? ` · ${qty} items` : ''}${size ? ` · ${size}` : ''}${color ? ` · ${color}` : ''}`);
+    });
+
+    $$('[data-pdp-buy]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            bumpCount('cart');
+        });
+    });
+};
+
+/* ---------- Cart page ---------- */
+const FREE_DELIVERY_OVER = 2000;
+const DELIVERY_FEE = 60;
+const COUPONS = { EID2026: 0.1, BITMART10: 0.1 };
+
+const bindCartPage = () => {
+    const items = $('[data-cart-items]');
+    if (!items) return;
+
+    let discountRate = 0;
+
+    const rows = () => $$('[data-cart-row]', items);
+
+    const recalc = () => {
+        let subtotal = 0;
+        let count = 0;
+
+        rows().forEach((row) => {
+            const price = parseFloat(row.dataset.price || '0');
+            const qtyField = $('[data-cart-qty]', row);
+            const qty = Math.min(10, Math.max(1, parseInt(qtyField?.value || '1', 10) || 1));
+            if (qtyField && qtyField.value !== String(qty)) qtyField.value = String(qty);
+
+            const lineTotal = price * qty;
+            subtotal += lineTotal;
+            count += qty;
+
+            const lineEl = $('[data-cart-line-total]', row);
+            if (lineEl) lineEl.textContent = taka(lineTotal);
+        });
+
+        const delivery = subtotal >= FREE_DELIVERY_OVER ? 0 : DELIVERY_FEE;
+        const discount = Math.round(subtotal * discountRate);
+        const total = subtotal - discount + delivery;
+
+        setSummary('subtotal', subtotal);
+        setDeliverySummary(delivery);
+        setSummary('total', total);
+
+        const discountEl = $('[data-summary="discount"]');
+        if (discountEl) discountEl.textContent = `−${taka(discount)}`;
+
+        const discountRow = $('[data-summary-discount-row]');
+        if (discountRow) discountRow.hidden = discount <= 0;
+
+        const countEl = $('[data-cart-count]');
+        if (countEl) {
+            countEl.textContent = `${count} item${count === 1 ? '' : 's'} · Prices include all taxes`;
+        }
+
+        const note = $('[data-delivery-note]');
+        if (note) {
+            note.textContent = delivery === 0
+                ? 'Free delivery unlocked on this order.'
+                : `Add ${taka(FREE_DELIVERY_OVER - subtotal)} more for free delivery.`;
+        }
+    };
+
+    items.addEventListener('click', (e) => {
+        const row = e.target.closest('[data-cart-row]');
+        if (!row) return;
+
+        const qtyField = $('[data-cart-qty]', row);
+        if (e.target.closest('[data-cart-minus]')) {
+            qtyField.value = Math.max(1, parseInt(qtyField.value, 10) - 1);
+            recalc();
+        } else if (e.target.closest('[data-cart-plus]')) {
+            qtyField.value = Math.min(10, parseInt(qtyField.value, 10) + 1);
+            recalc();
+        } else if (e.target.closest('[data-cart-remove]')) {
+            const name = $('a', row)?.textContent?.trim() || 'Item';
+            row.remove();
+            recalc();
+            toast(`${name} removed from cart`);
+
+            const empty = $('[data-cart-empty]');
+            if (rows().length === 0) {
+                items.classList.add('hidden');
+                empty?.classList.remove('hidden');
+                $('[data-cart-summary]')?.classList.add('hidden');
+            }
+        }
+    });
+
+    items.addEventListener('change', (e) => {
+        if (e.target.matches('[data-cart-qty]')) recalc();
+    });
+
+    const couponInput = $('[data-coupon-input]');
+    const couponMessage = $('[data-coupon-message]');
+
+    const applyCoupon = () => {
+        const code = (couponInput?.value || '').trim().toUpperCase();
+
+        if (!code) {
+            discountRate = 0;
+            couponMessage && (couponMessage.textContent = 'Enter a promo code first.');
+            couponMessage?.classList.remove('hidden', 'text-success-700');
+            couponMessage?.classList.add('text-error-700');
+            recalc();
+            return;
+        }
+
+        if (COUPONS[code]) {
+            discountRate = COUPONS[code];
+            couponMessage && (couponMessage.textContent = `${code} applied — ${Math.round(discountRate * 100)}% off your order.`);
+            couponMessage?.classList.remove('hidden', 'text-error-700');
+            couponMessage?.classList.add('text-success-700');
+            toast(`Promo code ${code} applied`);
+        } else {
+            discountRate = 0;
+            couponMessage && (couponMessage.textContent = 'That promo code is not valid.');
+            couponMessage?.classList.remove('hidden', 'text-success-700');
+            couponMessage?.classList.add('text-error-700');
+        }
+
+        recalc();
+    };
+
+    $('[data-coupon-apply]')?.addEventListener('click', applyCoupon);
+    couponInput?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            applyCoupon();
+        }
+    });
+    $$('[data-coupon-fill]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            if (couponInput) couponInput.value = btn.dataset.couponFill;
+            applyCoupon();
+        });
+    });
+
+    recalc();
+};
+
+/* ---------- Checkout page ---------- */
+const bindCheckout = () => {
+    const form = $('[data-checkout-form]');
+    if (!form) return;
+
+    const subtotal = parseFloat(form.dataset.subtotal || '0');
+    const freeOver = parseFloat(form.dataset.freeOver || String(FREE_DELIVERY_OVER));
+
+    const deliveryOptions = $$('[data-delivery-option]');
+
+    const applyDelivery = () => {
+        const selected = deliveryOptions.find((o) => o.checked) || deliveryOptions[0];
+        if (!selected) return;
+
+        const charge = parseFloat(selected.dataset.charge || '0');
+        const freeEligible = selected.dataset.freeOver !== undefined;
+        const delivery = freeEligible && subtotal >= freeOver ? 0 : charge;
+
+        deliveryOptions.forEach((option) => {
+            const optionCharge = parseFloat(option.dataset.charge || '0');
+            const optionFree = option.dataset.freeOver !== undefined && subtotal >= freeOver;
+            const label = $('[data-delivery-charge-label]', option.closest('label') || option);
+            if (!label) return;
+            label.textContent = optionFree ? 'Free' : optionCharge === 0 ? 'Free' : taka(optionCharge);
+        });
+
+        setDeliverySummary(delivery);
+        const discountEl = $('[data-summary="discount"]');
+        const discount = discountEl ? Math.round(parseFloat(discountEl.textContent.replace(/[^\d.]/g, '')) || 0) : 0;
+        setSummary('total', subtotal - discount + delivery);
+    };
+
+    deliveryOptions.forEach((option) => option.addEventListener('change', applyDelivery));
+
+    const paymentOptions = $$('[data-payment-option]');
+    const panels = $$('[data-payment-panel]');
+
+    const applyPayment = () => {
+        const selected = paymentOptions.find((o) => o.checked);
+        panels.forEach((panel) => {
+            panel.classList.toggle('hidden', panel.dataset.paymentPanel !== selected?.value);
+        });
+    };
+
+    paymentOptions.forEach((option) => option.addEventListener('change', applyPayment));
+
+    const showError = (field, message) => {
+        const target = $(`[data-error="${field}"]`);
+        if (target) {
+            target.textContent = message;
+            target.classList.remove('hidden');
+        }
+        field.setAttribute('aria-invalid', 'true');
+    };
+
+    const clearError = (field) => {
+        const target = $(`[data-error="${field.name}"]`);
+        if (target) {
+            target.textContent = '';
+            target.classList.add('hidden');
+        }
+        field.removeAttribute('aria-invalid');
+    };
+
+    const requiredFields = () => {
+        const base = $$('[required]', form);
+        const extra = paymentOptions.find((o) => o.checked)?.value;
+        if (extra && extra !== 'cod') {
+            const extraField = $(`[name="${extra}_number"]`, form)
+                || (extra === 'card' ? $('[name="card_number"]', form) : null);
+            if (extraField) base.push(extraField);
+        }
+        return base;
+    };
+
+    const validate = () => {
+        let firstInvalid = null;
+
+        requiredFields().forEach((field) => {
+            const value = (field.value || '').trim();
+            if (!value) {
+                showError(field, 'This field is required.');
+                firstInvalid = firstInvalid || field;
+            } else if (field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                showError(field, 'Enter a valid email address.');
+                firstInvalid = firstInvalid || field;
+            } else if (field.name === 'phone' || field.name === 'address_phone') {
+                const digits = value.replace(/\D/g, '');
+                if (digits.length < 10 || digits.length > 14) {
+                    showError(field, 'Enter a valid Bangladeshi phone number.');
+                    firstInvalid = firstInvalid || field;
+                } else {
+                    clearError(field);
+                }
+            } else {
+                clearError(field);
+            }
+        });
+
+        return firstInvalid;
+    };
+
+    $$('[data-place-order]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const invalid = validate();
+
+            if (invalid) {
+                invalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                invalid.focus({ preventScroll: true });
+                toast('Please complete the highlighted fields', 'info');
+                return;
+            }
+
+            const successUrl = btn.dataset.successUrl;
+            if (successUrl) {
+                window.location.href = successUrl;
+            }
+        });
+    });
+
+    form.addEventListener('input', (e) => {
+        if (e.target.matches('[required]')) clearError(e.target);
+    });
+
+    applyDelivery();
+    applyPayment();
+};
+
 /* ---------- Init ---------- */
 document.addEventListener('DOMContentLoaded', () => {
     window.__t0 = performance.now();
@@ -357,4 +723,7 @@ document.addEventListener('DOMContentLoaded', () => {
     bindQuickView();
     bindAI();
     bindSkeletons();
+    bindProductPage();
+    bindCartPage();
+    bindCheckout();
 });

@@ -1,6 +1,7 @@
 @props([
     'id' => 'p-' . uniqid(),
     'name' => '',
+    'href' => null,
     'price' => 0,
     'originalPrice' => null,
     'rating' => null,
@@ -14,22 +15,17 @@
 ])
 
 @php
-    $tints = [
-        'primary' => 'bg-primary-50 text-primary-700',
-        'secondary' => 'bg-secondary-100 text-secondary-700',
-        'ai' => 'bg-ai-50 text-ai-700',
-        'info' => 'bg-info-50 text-info-700',
-        'neutral' => 'bg-neutral-100 text-neutral-600',
-    ];
-    $tintClass = $tints[$tint] ?? $tints['primary'];
     $discount = $discount ?? ($originalPrice ? round((1 - $price / $originalPrice) * 100) : null);
 @endphp
 
 <article class="group relative flex flex-col overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md" data-product-id="{{ $id }}">
     <div class="relative overflow-hidden">
-        <div class="relative aspect-[4/3] {{ $available ? $tintClass : 'bg-neutral-100 text-neutral-400' }} flex items-center justify-center transition-colors">
-            <x-icon :name="$icon" class="size-16 opacity-80 transition-transform duration-300 group-hover:scale-110" />
-
+        <x-product-thumb
+            :icon="$icon"
+            :tint="$available ? $tint : 'muted'"
+            class="relative aspect-[4/3] transition-colors"
+            icon-class="size-16 opacity-80 transition-transform duration-300 group-hover:scale-110"
+        >
             @if ($label)
                 <span class="absolute left-2 top-2 inline-flex items-center gap-1 rounded-full bg-ai-50 bg-white/70 px-2 py-1 text-[11px] font-semibold text-ai-700 shadow-xs backdrop-blur">
                     <x-icon name="sparkles" class="size-3" />
@@ -49,7 +45,7 @@
             >
                 <x-icon name="heart" filled class="size-4" />
             </button>
-        </div>
+        </x-product-thumb>
 
         @if ($available)
 <button
@@ -71,7 +67,7 @@
     </div>
 
     <div class="flex flex-1 flex-col gap-1 p-3">
-        <a href="#" class="line-clamp-2 text-[13px] font-medium leading-snug text-neutral-800 transition-colors hover:text-primary-700">
+        <a href="{{ $href ?? '#' }}" class="line-clamp-2 text-[13px] font-medium leading-snug text-neutral-800 transition-colors hover:text-primary-700">
             {{ $name }}
         </a>
 

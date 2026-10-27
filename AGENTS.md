@@ -9,12 +9,13 @@ design doc immediately, then update the change log.
 ## Where we are
 
 - **Phase 1 — Design System: ✅ complete** (v1.0).
-- **Phase 2 — Visual direction mock: IN PROGRESS / ✅ homepage built for review.**
-  Built in the current Laravel + Tailwind v4 stack (Blade) at `/` (`HomeController` →
-  `resources/views/home.blade.php` + partials) so it's viewable now; translates to
+- **Phase 2 — Visual direction mock: ✅ storefront built.** Built in the current
+  Laravel + Tailwind v4 stack (Blade) so it's viewable now; translates to
   Next.js/Tailwind/shadcn later without redesign.
 - Design system source of truth: `docs/design/bitmart-design-system.md`.
-- **Only the homepage exists. Product/cart/checkout/admin pages are NOT created yet.**
+- **Pages that exist:** home `/`, product `/products/{slug}`, cart `/cart`,
+  checkout `/checkout`, order success `/order/success`, order failed `/order/failed`.
+  Admin and account pages are NOT created yet.
 
 ## Design intent (always re-read full doc for details)
 
@@ -36,12 +37,31 @@ design doc immediately, then update the change log.
 
 1. Design system (tokens, colors, typography, spacing, radius, shadows, components,
    product card, nav, AI language, trust, responsive, motion, a11y) — DONE, v1.0.
-2. Visual direction mock — single signature page (home) — DONE (Blade, viewable at `/`).
-   Validates Direction; current home files: `resources/views/home.blade.php`,
-   `resources/views/components/{icon,product-card}.blade.php`,
-   `resources/views/components/layouts/app.blade.php`, `resources/views/partials/*`.
+2. Visual direction mock — signature page (home) + storefront pages — DONE (Blade).
+   Pages: `resources/views/{home,product,cart,checkout}.blade.php`,
+   `resources/views/order/{success,failed}.blade.php`; shared components in
+   `resources/views/components/*`; demo data in `app/Support/Catalog.php`.
 3. Implementation (Next.js + Tailwind + shadcn pages & flows).
 4. AI features layered onto the existing visual language.
+
+## Storefront build notes (Phase 2)
+
+- Routes: `/` (`home`), `/products/{slug}` (`products.show`), `/cart` (`cart.index`),
+  `/checkout` (`checkout.index`), `/order/success` (`order.success`),
+  `/order/failed` (`order.failed`) — see `routes/web.php`.
+- Demo data is static in `app/Support/Catalog.php` (7 products, cart, order); no
+  models or database writes yet. Orders are not persisted — checkout redirects to the
+  success page after client-side validation.
+- Shared components: `x-product-thumb`, `x-breadcrumb`, `x-order-summary`,
+  `x-form-field`, `x-form-select`; `x-product-card` supports `:href`.
+- Interactive behaviour lives in `resources/js/app.js`: PDP colour/size/qty + tabs,
+  cart qty/remove/coupon (`EID2026`, `BITMART10` = 10% off) with live totals,
+  checkout delivery/payment selection + validation, free delivery over ৳2,000.
+- Totals hooks: `data-summary="subtotal|delivery|discount|total"` and
+  `data-summary-discount-row`; selection hooks: `data-color-option`,
+  `data-size-option`, `data-delivery-option`, `data-payment-option`,
+  `data-payment-panel`.
+- Tests: `tests/Feature/StorefrontPagesTest.php` (Pest).
 
 ## Home page build notes (Phase 2)
 

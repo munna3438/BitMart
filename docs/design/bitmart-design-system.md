@@ -483,15 +483,66 @@ Currency: `৳` BDT, no decimals for normal prices.
 
 ---
 
-## 17. Phase Roadmap
+## 17. Storefront Page Specs
 
-- **Phase 1 — Design system (✅ current):** tokens, colors, typography, space, radius, shadows, components, product card, header/footer, AI language, trust, responsive, motion, a11y. No pages.
-- **Phase 2 — Visual direction mock:** signature page (home) in HTML/React to validate the direction.
+Built in the current Laravel + Tailwind v4 (Blade) stack; every page reuses the
+tokens and components above — no new colors, no new type scale, no new radii.
+
+### 17.1 Product detail — `/products/{slug}`
+
+- **Layout:** 2-column on `lg` (`minmax(0,1fr)` + `400px`, `440px` at `xl`); buy box is `lg:sticky lg:top-24` and spans both grid rows. Mobile stacks gallery → buy box → details.
+- **Gallery:** 4:3 primary image + 4 thumbnails (icon placeholders in tints at mock stage).
+- **Buy box:** brand · badge · title · rating + "Verified reviews" · price + strikethrough + discount chip · stock line · colour swatches · size chips · quantity stepper (1–10) · Add to Cart / Buy Now / wishlist.
+- **Trust list under actions:** delivery estimate, 7-day return, COD, secure payment — with a Bangla line (`font-bengali`).
+- **Tabs:** Description / Specifications / Delivery & Returns (`data-tab` + `data-tab-panel`, selected tab uses `data-[selected=true]:`).
+- **Reviews:** average score card, 5→1 star breakdown bars (warning tokens), review cards with verified-purchase chip.
+- **AI:** single "Need help choosing?" card (indigo surface) opening the existing AI sheet. No AI banner, no chat widget.
+- **Related:** "You may also like" grid reusing the product card with `:href`.
+
+### 17.2 Cart — `/cart`
+
+- **Layout:** items column + `380px` summary column (sticky on `lg`).
+- **Row:** product thumb, name link, size/colour, stock line, quantity stepper, line total, remove button.
+- **States:** populated list → empty state (dashed card, "Your cart is empty") when the last row is removed; coupon block with `EID2026` / `BITMART10` (10% off) and inline feedback.
+- **Totals live:** subtotal, delivery (free over ৳2,000, otherwise ৳60), discount row (hidden at 0), total — updated by `data-summary="…"` hooks.
+- **Trust column:** free delivery note, 7-day return, secure payment, "Frequently bought together" strip below.
+
+### 17.3 Checkout — `/checkout`
+
+- **Steps:** Cart → Information → Payment → Confirmation (done / current / upcoming).
+- **Sections:** 1 Contact details · 2 Delivery address (name, phone, address, area, district select, postal code) · 3 Delivery method (standard ৳60 free over ৳2,000 / express ৳120 / pickup ৳0) · 4 Payment method (COD, bKash, Nagad, card — each with its own panel) · 5 Order note.
+- **Selection:** radio cards use `has-[:checked]:` variants; the matching `data-payment-panel` expands, delivery charge and total recompute live.
+- **Validation:** required fields surface inline errors in `data-error="{name}"` with `aria-invalid`; Place Order only advances when the form is valid.
+- **Summary:** same order-summary component as the cart, plus the AI helper card.
+
+### 17.4 Order success — `/order/success`
+
+- Confirmation hero (success token, order number, amount paid, payment method) + Bangla confirmation line.
+- Order progress timeline (confirmed → packed → shipped → delivered) with done/upcoming states.
+- Items list, delivery address card, payment card, payment summary, "Continue shopping", invoice and track-order actions, support card.
+
+### 17.5 Order failed — `/order/failed`
+
+- Failure hero (error token) stating **no money was taken**, with the order number and amount due.
+- "What happened" reasons, "What you can do" actions (retry, change method, ask BitMart AI), items list, order summary, support card.
+- Reachable from checkout via a discreet "Preview failed payment state" link (mock hook).
+
+### 17.6 Shared components added
+
+`x-product-thumb` (tinted icon placeholder), `x-breadcrumb`, `x-order-summary` (items + totals + action slot), `x-form-field`, `x-form-select`. `x-product-card` gained a `:href` prop; `x-layouts.app` gained `title` and `description` props.
+
+---
+
+## 18. Phase Roadmap
+
+- **Phase 1 — Design system (✅ done, v1.0):** tokens, colors, typography, space, radius, shadows, components, product card, header/footer, AI language, trust, responsive, motion, a11y.
+- **Phase 2 — Visual direction mock (✅ done):** homepage + storefront pages (product, cart, checkout, order success/failed) in Laravel + Blade + Tailwind v4.
 - **Phase 3 — Implementation:** Next.js + Tailwind + shadcn build-out of pages & flows.
 - **Phase 4 — AI features:** integrate AI search/assistant/support/seller tools using the existing visual language.
 
 ---
 
-## 18. Change Log
+## 19. Change Log
 
 - **v1.0** — Initial design system established (tokens, components, AI language, trust, responsive, motion, a11y). No pages created.
+- **v1.1** — Storefront pages built in the Laravel/Blade stack: product detail, cart, checkout, order success, order failed. Added shared components (product thumb, breadcrumb, order summary, form field, form select), `:href` on the product card, `title`/`description` on the layout, and live summary/selection/validation behaviour in `resources/js/app.js`. No token changes.

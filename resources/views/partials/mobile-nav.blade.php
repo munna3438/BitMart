@@ -1,6 +1,6 @@
 <nav class="fixed inset-x-0 bottom-0 z-50 border-t border-neutral-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85 lg:hidden" aria-label="Primary">
     <div class="grid grid-cols-5">
-        <a href="#" class="flex flex-col items-center gap-0.5 py-2.5 text-primary-700" aria-current="page">
+        <a href="{{ route('home') }}" class="flex flex-col items-center gap-0.5 py-2.5 text-primary-700" aria-current="page">
             <x-icon name="home" class="size-5.5" />
             <span class="text-[11px] font-semibold">Home</span>
         </a>

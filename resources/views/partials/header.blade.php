@@ -8,7 +8,7 @@
                 <x-icon name="menu" class="size-6" />
             </button>
 
-            <a href="#" class="flex shrink-0 items-center gap-2" aria-label="BitMart home">
+            <a href="{{ route('home') }}" class="flex shrink-0 items-center gap-2" aria-label="BitMart home">
                 <span class="flex size-9 items-center justify-center rounded-lg bg-primary-700 text-white">
                     <x-icon name="sparkles" class="size-5" />
                 </span>
@@ -121,10 +121,10 @@
                     <span class="{{ $pill }}" data-count="wishlist" hidden>0</span>
                 </button>
 
-                <button type="button" data-cart-nav class="{{ $iconBtn }}" aria-label="Shopping cart">
+                <a href="{{ route('cart.index') }}" data-cart-nav class="{{ $iconBtn }}" aria-label="Shopping cart">
                     <x-icon name="cart" class="size-5.5" />
                     <span class="{{ $pill }}" data-count="cart" hidden>0</span>
-                </button>
+                </a>
 
                 {{-- Mobile search trigger --}}
                 <button type="button" data-search-open class="{{ $iconBtn }} lg:hidden" aria-label="Search">
@@ -140,7 +140,7 @@
                         <x-icon name="chevron-down" class="size-4 opacity-70" />
                     </button>
                     <div class="invisible absolute right-0 top-full z-50 w-56 origin-top scale-95 rounded-xl border bg-white p-2 opacity-0 shadow-lg transition-all duration-150 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:scale-100 group-hover:opacity-100">
-                        <a href="#" class="block rounded-lg px-3 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-100">My Orders</a>
+                        <a href="{{ route('order.success') }}" class="block rounded-lg px-3 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-100">My Orders</a>
                         <a href="#" class="block rounded-lg px-3 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-100">Wishlist</a>
                         <a href="#" class="block rounded-lg px-3 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-100">Addresses</a>
                         <a href="#" class="block rounded-lg px-3 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-100">Help & Support</a>

@@ -3,7 +3,7 @@
 
         <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
             <div class="space-y-4">
-                <a href="#" class="flex items-center gap-2" aria-label="BitMart home">
+                <a href="{{ route('home') }}" class="flex items-center gap-2" aria-label="BitMart home">
                     <span class="flex size-8 items-center justify-center rounded-lg bg-primary-700 text-white">
                         <x-icon name="sparkles" class="size-4.5" />
                     </span>
@@ -37,7 +37,7 @@
                     <li><a href="#" class="transition hover:text-primary-700">Delivery</a></li>
                     <li><a href="#" class="transition hover:text-primary-700">Returns</a></li>
                     <li><a href="#" class="transition hover:text-primary-700">Payment</a></li>
-                    <li><a href="#" class="transition hover:text-primary-700">Order Tracking</a></li>
+                    <li><a href="{{ route('order.success') }}" class="transition hover:text-primary-700">Order Tracking</a></li>
                 </ul>
             </div>
 
