@@ -18,7 +18,7 @@
             <ul class="space-y-3.5">
                 @foreach ($lines as $line)
                     <li class="flex items-start gap-3">
-                        <x-product-thumb :icon="$line['icon']" :tint="$line['tint']" class="size-12 rounded-md" icon-class="size-5" />
+                        <x-product-thumb :icon="$line['icon']" :image="$line['image'] ?? null" :tint="$line['tint']" class="size-12 rounded-md" icon-class="size-5" />
                         <div class="min-w-0 flex-1">
                             <p class="truncate text-sm font-medium leading-snug text-neutral-800">{{ $line['name'] }}</p>
                             <p class="mt-0.5 text-xs text-neutral-500">

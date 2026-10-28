@@ -26,7 +26,7 @@
                     @foreach ($lines as $line)
                         <article class="rounded-xl border border-neutral-200 bg-white p-4" data-cart-row data-price="{{ $line['price'] }}">
                             <div class="flex gap-4">
-                                <x-product-thumb :icon="$line['icon']" :tint="$line['tint']" class="size-20 rounded-lg sm:size-24" icon-class="size-8" />
+                                <x-product-thumb :icon="$line['icon']" :image="$line['image'] ?? null" :tint="$line['tint']" class="size-20 rounded-lg sm:size-24" icon-class="size-8" />
 
                                 <div class="min-w-0 flex-1">
                                     <div class="flex items-start justify-between gap-3">

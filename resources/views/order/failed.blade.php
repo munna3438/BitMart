@@ -119,7 +119,7 @@
                         <ul class="mt-4 divide-y divide-neutral-100">
                             @foreach ($order['lines'] as $line)
                                 <li class="flex items-center gap-4 py-3 first:pt-0 last:pb-0">
-                                    <x-product-thumb :icon="$line['icon']" :tint="$line['tint']" class="size-14 rounded-lg" icon-class="size-6" />
+                                    <x-product-thumb :icon="$line['icon']" :image="$line['image'] ?? null" :tint="$line['tint']" class="size-14 rounded-lg" icon-class="size-6" />
                                     <div class="min-w-0 flex-1">
                                         <a href="{{ route('products.show', $line['slug']) }}" class="line-clamp-1 text-sm font-medium text-neutral-900 transition hover:text-primary-700">{{ $line['name'] }}</a>
                                         <p class="mt-0.5 text-xs text-neutral-500">Size {{ $line['size'] }} · {{ $line['color'] }} · Qty {{ $line['quantity'] }}</p>

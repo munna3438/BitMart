@@ -7,7 +7,8 @@
         </button>
 
         <div class="grid gap-4 p-5 sm:grid-cols-2 sm:gap-6">
-            <div data-qv-visual class="flex aspect-[4/3] items-center justify-center rounded-xl bg-primary-50 text-primary-700 sm:aspect-auto sm:h-full sm:min-h-56">
+            <div data-qv-visual class="flex aspect-[4/3] items-center justify-center overflow-hidden rounded-xl bg-primary-50 text-primary-700 sm:aspect-auto sm:h-full sm:min-h-56">
+                <img src="" alt="" class="hidden h-full w-full object-cover" data-qv-img>
                 <x-icon :name="'shirt'" class="size-16 opacity-70" data-qv-icon />
             </div>
             <div class="flex flex-col gap-3 py-2 sm:py-3">

@@ -10,7 +10,7 @@
 
             <a href="{{ route('home') }}" class="flex shrink-0 items-center gap-2" aria-label="BitMart home">
                 <span class="flex size-9 items-center justify-center rounded-lg bg-primary-700 text-white">
-                    <x-icon name="sparkles" class="size-5" />
+                    <i class="fa-solid fa-bolt text-base"></i>
                 </span>
                 <span class="text-xl font-extrabold tracking-tight text-neutral-900">Bit<span class="text-primary-700">Mart</span></span>
             </a>
@@ -46,7 +46,7 @@
             {{-- Desktop smart search --}}
             <div class="relative hidden flex-1 lg:block" data-search-wrap>
                 <form class="relative" role="search" action="#" onsubmit="return false;">
-                    <x-icon name="search" class="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-neutral-400" />
+                    <i class="fa-solid fa-magnifying-glass pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400"></i>
                     <input
                         type="search"
                         data-search-input
@@ -55,7 +55,7 @@
                         class="h-11 w-full rounded-full border border-neutral-300 bg-neutral-100/70 pl-10 pr-24 text-sm text-neutral-800 placeholder:text-neutral-400 focus:border-primary-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-600/30"
                     >
                     <div class="pointer-events-none absolute right-2 top-1/2 flex -translate-y-1/2 items-center gap-1 rounded-full bg-ai-100 px-2 py-1">
-                        <x-icon name="sparkles" class="size-3 text-ai-600" />
+                        <i class="fa-solid fa-wand-magic-sparkles text-xs text-ai-600"></i>
                         <span class="text-xs font-semibold text-ai-700">AI</span>
                     </div>
                 </form>

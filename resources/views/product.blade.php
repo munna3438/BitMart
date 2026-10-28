@@ -13,8 +13,12 @@
             {{-- Gallery --}}
             <div class="lg:col-start-1 lg:row-start-1">
                 <div class="relative overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-xs">
-                    <div class="relative flex aspect-[4/3] items-center justify-center bg-primary-50 text-primary-700">
-                        <x-icon :name="$product['icon']" class="size-32 opacity-80" />
+                    <div class="relative flex aspect-[4/3] items-center justify-center {{ isset($product['image']) && $product['image'] ? 'bg-neutral-50' : 'bg-primary-50 text-primary-700' }}">
+                        @if(isset($product['image']) && $product['image'])
+                            <img src="{{ asset($product['image']) }}" alt="{{ $product['name'] }}" class="h-full w-full object-cover">
+                        @else
+                            <x-icon :name="$product['icon']" class="size-32 opacity-80" />
+                        @endif
 
                         @if ($product['badge'])
                             <span class="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-neutral-800 shadow-sm">
@@ -35,16 +39,21 @@
                 </div>
 
                 <div class="mt-3 grid grid-cols-4 gap-3">
-                    @foreach([
-                        ['primary', $product['icon']],
-                        ['secondary', $product['icon']],
-                        ['info', $product['icon']],
-                        ['neutral', $product['icon']],
-                    ] as [$thumbTint, $thumbIcon])
+                    @php
+                        $thumbs = [];
+                        if (isset($product['image']) && $product['image']) {
+                            $thumbs[] = ['image' => $product['image'], 'icon' => $product['icon'], 'tint' => 'neutral'];
+                        }
+                        $thumbs[] = ['image' => null, 'icon' => $product['icon'], 'tint' => 'primary'];
+                        $thumbs[] = ['image' => null, 'icon' => $product['icon'], 'tint' => 'secondary'];
+                        $thumbs[] = ['image' => null, 'icon' => $product['icon'], 'tint' => 'info'];
+                    @endphp
+                    @foreach($thumbs as $thumb)
                         <button type="button" class="group overflow-hidden rounded-lg border border-neutral-200 bg-white transition hover:border-primary-200 hover:shadow-sm" aria-label="View product image {{ $loop->iteration }}">
                             <x-product-thumb
-                                :icon="$thumbIcon"
-                                :tint="$thumbTint"
+                                :icon="$thumb['icon']"
+                                :tint="$thumb['tint']"
+                                :image="$thumb['image']"
                                 class="aspect-[4/3]"
                                 icon-class="size-8 opacity-80 transition-transform duration-300 group-hover:scale-110"
                             />

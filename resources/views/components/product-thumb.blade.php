@@ -2,6 +2,7 @@
     'icon' => 'shirt',
     'tint' => 'primary',
     'iconClass' => 'size-6',
+    'image' => null,
 ])
 
 @php
@@ -15,7 +16,11 @@
     ];
 @endphp
 
-<div {{ $attributes->merge(['class' => 'flex shrink-0 items-center justify-center rounded-lg ' . ($tints[$tint] ?? $tints['primary'])]) }}>
-    <x-icon :name="$icon" :class="$iconClass" />
+<div {{ $attributes->merge(['class' => 'flex shrink-0 items-center justify-center overflow-hidden rounded-lg ' . ($image ? 'bg-neutral-50' : ($tints[$tint] ?? $tints['primary']))]) }}>
+    @if ($image)
+        <img src="{{ asset($image) }}" alt="" class="h-full w-full object-cover" loading="lazy">
+    @else
+        <x-icon :name="$icon" :class="$iconClass" />
+    @endif
     {{ $slot }}
 </div>

@@ -10,6 +10,7 @@
     'badge' => null,
     'tint' => 'primary',
     'icon' => 'shirt',
+    'image' => null,
     'label' => null,
     'available' => true,
 ])
@@ -23,6 +24,7 @@
         <x-product-thumb
             :icon="$icon"
             :tint="$available ? $tint : 'muted'"
+            :image="$image"
             class="relative aspect-[4/3] transition-colors"
             icon-class="size-16 opacity-80 transition-transform duration-300 group-hover:scale-110"
         >
@@ -48,18 +50,19 @@
         </x-product-thumb>
 
         @if ($available)
-<button
-                        type="button"
-                        data-quick-view-open
-                        data-name="{{ $name }}"
-                        data-price="{{ number_format($price) }}৳"
-                        @if ($originalPrice) data-original="{{ number_format($originalPrice) }}৳" @endif
-                        data-rating="{{ $rating ?? '' }}"
-                        data-reviews="{{ $reviews ?? '' }}"
-                        data-icon="{{ $icon }}"
-                        data-tint="{{ $tint }}"
-                        class="absolute inset-x-0 bottom-0 flex items-center justify-center gap-1.5 bg-neutral-900/80 py-2 text-xs font-medium text-white opacity-0 transition group-hover:opacity-100 focus-visible:opacity-100"
-                    >
+            <button
+                type="button"
+                data-quick-view-open
+                data-name="{{ $name }}"
+                data-price="{{ number_format($price) }}৳"
+                @if ($originalPrice) data-original="{{ number_format($originalPrice) }}৳" @endif
+                data-rating="{{ $rating ?? '' }}"
+                data-reviews="{{ $reviews ?? '' }}"
+                data-icon="{{ $icon }}"
+                data-tint="{{ $tint }}"
+                @if ($image) data-image="{{ asset($image) }}" @endif
+                class="absolute inset-x-0 bottom-0 flex items-center justify-center gap-1.5 bg-neutral-900/80 py-2 text-xs font-medium text-white opacity-0 transition group-hover:opacity-100 focus-visible:opacity-100"
+            >
                 <x-icon name="eye" class="size-4" />
                 Quick view
             </button>
@@ -97,7 +100,7 @@
                     type="button"
                     data-add-to-cart
                     class="flex h-9 w-full items-center justify-center gap-1.5 rounded-md bg-primary-700 text-[13px] font-semibold text-white transition-colors hover:bg-primary-800 active:bg-primary-900">
-                    <x-icon name="cart" class="size-4" />
+                    <i class="fa-solid fa-cart-shopping text-sm"></i>
                     Add to Cart
                 </button>
             @else

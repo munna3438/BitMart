@@ -2,36 +2,36 @@
 
     @php
         $trending = [
-            (object)['slug' => 'premium-cotton-t-shirt', 'name' => 'Premium Cotton T-Shirt', 'price' => 890, 'original' => 1200, 'rating' => 4.6, 'reviews' => 312, 'icon' => 'shirt', 'tint' => 'primary', 'label' => 'Bestseller'],
-            (object)['slug' => 'mens-casual-shirt', 'name' => 'Men\'s Casual Shirt', 'price' => 1290, 'original' => null, 'rating' => 4.4, 'reviews' => 188, 'icon' => 'shirt', 'tint' => 'info', 'label' => 'Popular'],
-            (object)['slug' => 'womens-kurti', 'name' => 'Women\'s Kurti', 'price' => 1490, 'original' => 1900, 'rating' => 4.7, 'reviews' => 264, 'icon' => 'gem', 'tint' => 'secondary', 'label' => null],
-            (object)['slug' => 'casual-sneakers', 'name' => 'Casual Sneakers', 'price' => 2350, 'original' => 2800, 'rating' => 4.5, 'reviews' => 421, 'icon' => 'footprints', 'tint' => 'info', 'label' => null],
-            (object)['slug' => 'panjabi', 'name' => 'Panjabi', 'price' => 1850, 'original' => null, 'rating' => 4.8, 'reviews' => 156, 'icon' => 'shirt', 'tint' => 'secondary', 'label' => 'Popular'],
-            (object)['slug' => 'classic-oxford-shoe', 'name' => 'Classic Oxford Shoe', 'price' => 3150, 'original' => 3600, 'rating' => 4.4, 'reviews' => 98, 'icon' => 'footprints', 'tint' => 'neutral', 'label' => null],
+            (object)['slug' => 'premium-cotton-t-shirt', 'name' => 'Premium Cotton T-Shirt', 'price' => 890, 'original' => 1200, 'rating' => 4.6, 'reviews' => 312, 'icon' => 'shirt', 'image' => 'assets/images/61a794e1aa1f4-square.jpg.jpeg', 'tint' => 'primary', 'label' => 'Bestseller'],
+            (object)['slug' => 'mens-casual-shirt', 'name' => 'Men\'s Casual Shirt', 'price' => 1290, 'original' => null, 'rating' => 4.4, 'reviews' => 188, 'icon' => 'shirt', 'image' => 'assets/images/638894573d172-square.jpg.jpeg', 'tint' => 'info', 'label' => 'Popular'],
+            (object)['slug' => 'womens-kurti', 'name' => 'Women\'s Kurti', 'price' => 1490, 'original' => 1900, 'rating' => 4.7, 'reviews' => 264, 'icon' => 'gem', 'image' => 'assets/images/woman-product-1.jpeg', 'tint' => 'secondary', 'label' => null],
+            (object)['slug' => 'casual-sneakers', 'name' => 'Casual Sneakers', 'price' => 2350, 'original' => 2800, 'rating' => 4.5, 'reviews' => 421, 'icon' => 'footprints', 'image' => 'assets/images/6388715fe282b-square.jpg.jpeg', 'tint' => 'info', 'label' => null],
+            (object)['slug' => 'panjabi', 'name' => 'Panjabi', 'price' => 1850, 'original' => null, 'rating' => 4.8, 'reviews' => 156, 'icon' => 'shirt', 'image' => 'assets/images/6388945749713-square.jpg.jpeg', 'tint' => 'secondary', 'label' => 'Popular'],
+            (object)['slug' => 'classic-oxford-shoe', 'name' => 'Classic Oxford Shoe', 'price' => 3150, 'original' => 3600, 'rating' => 4.4, 'reviews' => 98, 'icon' => 'footprints', 'image' => 'assets/images/64afac039e789-square.jpg.jpeg', 'tint' => 'neutral', 'label' => null],
         ];
 
         $forYou = [
-            (object)['slug' => 'premium-cotton-t-shirt', 'name' => 'Premium Cotton T-Shirt', 'price' => 890, 'original' => null, 'rating' => 4.6, 'reviews' => 312, 'icon' => 'shirt', 'tint' => 'primary', 'reason' => 'Picked for you'],
-            (object)['slug' => 'womens-kurti', 'name' => 'Women\'s Kurti', 'price' => 1490, 'original' => null, 'rating' => 4.7, 'reviews' => 264, 'icon' => 'gem', 'tint' => 'secondary', 'reason' => 'Because you viewed Kurtis'],
-            (object)['slug' => 'casual-sneakers', 'name' => 'Casual Sneakers', 'price' => 2350, 'original' => null, 'rating' => 4.5, 'reviews' => 421, 'icon' => 'footprints', 'tint' => 'info', 'reason' => 'Popular with shoppers'],
-            (object)['slug' => 'mens-casual-shirt', 'name' => 'Men\'s Casual Shirt', 'price' => 1290, 'original' => null, 'rating' => 4.4, 'reviews' => 188, 'icon' => 'shirt', 'tint' => 'info', 'reason' => 'Picked for you'],
-            (object)['slug' => 'canvas-backpack', 'name' => 'Canvas Backpack', 'price' => 1650, 'original' => 1900, 'rating' => 4.3, 'reviews' => 97, 'icon' => 'bag', 'tint' => 'primary', 'reason' => 'Popular with shoppers'],
+            (object)['slug' => 'premium-cotton-t-shirt', 'name' => 'Premium Cotton T-Shirt', 'price' => 890, 'original' => null, 'rating' => 4.6, 'reviews' => 312, 'icon' => 'shirt', 'image' => 'assets/images/61a794e1aa1f4-square.jpg.jpeg', 'tint' => 'primary', 'reason' => 'Picked for you'],
+            (object)['slug' => 'womens-kurti', 'name' => 'Women\'s Kurti', 'price' => 1490, 'original' => null, 'rating' => 4.7, 'reviews' => 264, 'icon' => 'gem', 'image' => 'assets/images/woman-product-1.jpeg', 'tint' => 'secondary', 'reason' => 'Because you viewed Kurtis'],
+            (object)['slug' => 'casual-sneakers', 'name' => 'Casual Sneakers', 'price' => 2350, 'original' => null, 'rating' => 4.5, 'reviews' => 421, 'icon' => 'footprints', 'image' => 'assets/images/6388715fe282b-square.jpg.jpeg', 'tint' => 'info', 'reason' => 'Popular with shoppers'],
+            (object)['slug' => 'mens-casual-shirt', 'name' => 'Men\'s Casual Shirt', 'price' => 1290, 'original' => null, 'rating' => 4.4, 'reviews' => 188, 'icon' => 'shirt', 'image' => 'assets/images/638894573d172-square.jpg.jpeg', 'tint' => 'info', 'reason' => 'Picked for you'],
+            (object)['slug' => 'canvas-backpack', 'name' => 'Canvas Backpack', 'price' => 1650, 'original' => 1900, 'rating' => 4.3, 'reviews' => 97, 'icon' => 'bag', 'image' => 'assets/images/660ab04660919-square.jpg.jpeg', 'tint' => 'primary', 'reason' => 'Popular with shoppers'],
         ];
 
         $newArrivals = [
-            (object)['slug' => 'mens-casual-shirt', 'name' => 'Men\'s Casual Shirt', 'price' => 1290, 'original' => null, 'rating' => 4.4, 'reviews' => 188, 'icon' => 'shirt', 'tint' => 'info', 'label' => 'New'],
-            (object)['slug' => 'womens-kurti', 'name' => 'Women\'s Kurti', 'price' => 1490, 'original' => null, 'rating' => 4.7, 'reviews' => 264, 'icon' => 'gem', 'tint' => 'secondary', 'label' => 'New'],
-            (object)['slug' => 'casual-sneakers', 'name' => 'Casual Sneakers', 'price' => 2350, 'original' => null, 'rating' => 4.5, 'reviews' => 421, 'icon' => 'footprints', 'tint' => 'info', 'label' => null],
-            (object)['slug' => 'panjabi', 'name' => 'Panjabi', 'price' => 1850, 'original' => null, 'rating' => 4.8, 'reviews' => 156, 'icon' => 'shirt', 'tint' => 'secondary', 'label' => 'New'],
-            (object)['slug' => 'sports-watch', 'name' => 'Sports Watch', 'price' => 2950, 'original' => 3400, 'rating' => 4.2, 'reviews' => 74, 'icon' => 'watch', 'tint' => 'neutral', 'label' => null],
+            (object)['slug' => 'mens-casual-shirt', 'name' => 'Men\'s Casual Shirt', 'price' => 1290, 'original' => null, 'rating' => 4.4, 'reviews' => 188, 'icon' => 'shirt', 'image' => 'assets/images/638894573d172-square.jpg.jpeg', 'tint' => 'info', 'label' => 'New'],
+            (object)['slug' => 'womens-kurti', 'name' => 'Women\'s Kurti', 'price' => 1490, 'original' => null, 'rating' => 4.7, 'reviews' => 264, 'icon' => 'gem', 'image' => 'assets/images/woman-product-1.jpeg', 'tint' => 'secondary', 'label' => 'New'],
+            (object)['slug' => 'casual-sneakers', 'name' => 'Casual Sneakers', 'price' => 2350, 'original' => null, 'rating' => 4.5, 'reviews' => 421, 'icon' => 'footprints', 'image' => 'assets/images/6388715fe282b-square.jpg.jpeg', 'tint' => 'info', 'label' => null],
+            (object)['slug' => 'panjabi', 'name' => 'Panjabi', 'price' => 1850, 'original' => null, 'rating' => 4.8, 'reviews' => 156, 'icon' => 'shirt', 'image' => 'assets/images/6388945749713-square.jpg.jpeg', 'tint' => 'secondary', 'label' => 'New'],
+            (object)['slug' => 'sports-watch', 'name' => 'Sports Watch', 'price' => 2950, 'original' => 3400, 'rating' => 4.2, 'reviews' => 74, 'icon' => 'watch', 'image' => 'assets/images/67975cd673356-square.jpg.jpeg', 'tint' => 'neutral', 'label' => null],
         ];
 
         $bd = [
-            (object)['slug' => 'panjabi', 'name' => 'Panjabi', 'price' => 1850, 'original' => 2100, 'rating' => 4.8, 'reviews' => 156, 'icon' => 'shirt', 'tint' => 'secondary', 'label' => null],
-            (object)['slug' => 'womens-kurti', 'name' => 'Women\'s Kurti', 'price' => 1490, 'original' => null, 'rating' => 4.7, 'reviews' => 264, 'icon' => 'gem', 'tint' => 'primary', 'label' => 'Eid favourite'],
-            (object)['slug' => 'premium-cotton-t-shirt', 'name' => 'Premium Cotton T-Shirt', 'price' => 890, 'original' => 1100, 'rating' => 4.6, 'reviews' => 312, 'icon' => 'shirt', 'tint' => 'info', 'label' => null],
-            (object)['slug' => 'casual-sneakers', 'name' => 'Casual Sneakers', 'price' => 2350, 'original' => 2700, 'rating' => 4.5, 'reviews' => 421, 'icon' => 'footprints', 'tint' => 'info', 'label' => 'Popular'],
-            (object)['slug' => 'mens-casual-shirt', 'name' => 'Men\'s Casual Shirt', 'price' => 1290, 'original' => null, 'rating' => 4.4, 'reviews' => 188, 'icon' => 'shirt', 'tint' => 'primary', 'label' => null],
+            (object)['slug' => 'panjabi', 'name' => 'Panjabi', 'price' => 1850, 'original' => 2100, 'rating' => 4.8, 'reviews' => 156, 'icon' => 'shirt', 'image' => 'assets/images/6388945749713-square.jpg.jpeg', 'tint' => 'secondary', 'label' => null],
+            (object)['slug' => 'womens-kurti', 'name' => 'Women\'s Kurti', 'price' => 1490, 'original' => null, 'rating' => 4.7, 'reviews' => 264, 'icon' => 'gem', 'image' => 'assets/images/woman-product-1.jpeg', 'tint' => 'primary', 'label' => 'Eid favourite'],
+            (object)['slug' => 'premium-cotton-t-shirt', 'name' => 'Premium Cotton T-Shirt', 'price' => 890, 'original' => 1100, 'rating' => 4.6, 'reviews' => 312, 'icon' => 'shirt', 'image' => 'assets/images/61a794e1aa1f4-square.jpg.jpeg', 'tint' => 'info', 'label' => null],
+            (object)['slug' => 'casual-sneakers', 'name' => 'Casual Sneakers', 'price' => 2350, 'original' => 2700, 'rating' => 4.5, 'reviews' => 421, 'icon' => 'footprints', 'image' => 'assets/images/6388715fe282b-square.jpg.jpeg', 'tint' => 'info', 'label' => 'Popular'],
+            (object)['slug' => 'mens-casual-shirt', 'name' => 'Men\'s Casual Shirt', 'price' => 1290, 'original' => null, 'rating' => 4.4, 'reviews' => 188, 'icon' => 'shirt', 'image' => 'assets/images/638894573d172-square.jpg.jpeg', 'tint' => 'primary', 'label' => null],
         ];
     @endphp
 
@@ -43,7 +43,7 @@
         <div class="relative mx-auto grid w-full max-w-[1320px] gap-10 px-4 py-12 sm:py-16 md:px-6 lg:grid-cols-2 lg:items-center lg:gap-14 lg:px-8 lg:py-20">
             <div class="max-w-xl">
                 <p class="mb-4 inline-flex items-center gap-2 rounded-full border border-primary-200 bg-white px-3 py-1 text-xs font-semibold text-primary-800">
-                    <x-icon name="sparkles" class="size-3.5 text-ai-500" />
+                    <i class="fa-solid fa-wand-magic-sparkles text-ai-500"></i>
                     Smart shopping, made in Bangladesh
                 </p>
                 <h1 class="text-4xl font-extrabold leading-[1.08] tracking-tight text-neutral-900 sm:text-5xl lg:text-[3.4rem]">
@@ -56,10 +56,10 @@
                 <div class="mt-8 flex flex-col gap-3 sm:flex-row">
                     <a href="#" class="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-primary-700 px-7 text-sm font-semibold text-white shadow-sm transition hover:bg-primary-800 active:scale-[0.99]">
                         Start Shopping
-                        <x-icon name="arrow-right" class="size-4" />
+                        <i class="fa-solid fa-arrow-right"></i>
                     </a>
                     <button type="button" data-ai-trigger class="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-ai-200 bg-ai-50 px-7 text-sm font-semibold text-ai-700 transition hover:bg-ai-100 active:scale-[0.99]">
-                        <x-icon name="sparkles" class="size-4" />
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
                         Ask BitMart AI
                     </button>
                 </div>
@@ -77,12 +77,12 @@
                         </span>
                     </div>
 
-                    <div class="my-4 flex aspect-[16/9] items-center justify-center rounded-lg bg-primary-50 text-primary-700">
-                        <x-icon name="gem" class="size-20 opacity-80" />
+                    <div class="my-4 flex aspect-16/9 items-center justify-center rounded-lg bg-primary-50 text-primary-700">
+                        <img class="" src="{{ asset('assets/images/banner-2.jpeg') }}" alt="">
                     </div>
 
                     <div class="space-y-2">
-                        <p class="text-sm font-semibold leading-snug text-neutral-900">Women's Kurti · Premium cotton blend</p>
+                        <p class="text-sm font-semibold leading-snug text-neutral-900">Men's T-Shirt · Premium cotton blend</p>
                         <div class="flex items-center gap-1.5 text-xs text-neutral-500">
                             <x-icon name="star" filled class="size-3.5 text-warning-500" />
                             <span class="font-semibold text-neutral-700">4.7</span>
@@ -218,7 +218,7 @@
 
             <div data-content class="hidden grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
                 @foreach($trending as $p)
-                    <x-product-card :href="route('products.show', $p->slug)" :name="$p->name" :price="$p->price" :original-price="$p->original" :rating="$p->rating" :reviews="$p->reviews" :icon="$p->icon" :tint="$p->tint" :label="$p->label" />
+                    <x-product-card :href="route('products.show', $p->slug)" :name="$p->name" :price="$p->price" :original-price="$p->original" :rating="$p->rating" :reviews="$p->reviews" :icon="$p->icon" :image="$p->image ?? null" :tint="$p->tint" :label="$p->label" />
                 @endforeach
             </div>
         </div>
@@ -243,7 +243,7 @@
 
             <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
                 @foreach($forYou as $p)
-                    <x-product-card :href="route('products.show', $p->slug)" :name="$p->name" :price="$p->price" :original-price="$p->original" :rating="$p->rating" :reviews="$p->reviews" :icon="$p->icon" :tint="$p->tint" :label="$p->reason" />
+                    <x-product-card :href="route('products.show', $p->slug)" :name="$p->name" :price="$p->price" :original-price="$p->original" :rating="$p->rating" :reviews="$p->reviews" :icon="$p->icon" :image="$p->image ?? null" :tint="$p->tint" :label="$p->reason" />
                 @endforeach
             </div>
         </div>
@@ -283,7 +283,7 @@
     </section>
 
     {{-- 9. New arrivals --}}
-    <section class="mx-auto w-full max-w-[1320px] px-4 pb-12 md:px-6 md:pb-16 lg:px-8">
+    {{-- <section class="mx-auto w-full max-w-[1320px] px-4 pb-12 md:px-6 md:pb-16 lg:px-8">
         <div class="mb-8 flex items-end justify-between gap-4">
             <div>
                 <h2 class="text-2xl font-extrabold tracking-tight text-neutral-900 sm:text-3xl">New Arrivals</h2>
@@ -311,11 +311,11 @@
 
             <div data-content class="hidden grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
                 @foreach($newArrivals as $p)
-                    <x-product-card :href="route('products.show', $p->slug)" :name="$p->name" :price="$p->price" :original-price="$p->original" :rating="$p->rating" :reviews="$p->reviews" :icon="$p->icon" :tint="$p->tint" :label="$p->label" />
+                    <x-product-card :href="route('products.show', $p->slug)" :name="$p->name" :price="$p->price" :original-price="$p->original" :rating="$p->rating" :reviews="$p->reviews" :icon="$p->icon" :image="$p->image ?? null" :tint="$p->tint" :label="$p->label" />
                 @endforeach
             </div>
         </div>
-    </section>
+    </section> --}}
 
     {{-- 10. Popular in Bangladesh --}}
     <section class="border-y border-neutral-200 bg-neutral-50">
@@ -339,7 +339,7 @@
 
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
                 @foreach($bd as $p)
-                    <x-product-card :href="route('products.show', $p->slug)" :name="$p->name" :price="$p->price" :original-price="$p->original" :rating="$p->rating" :reviews="$p->reviews" :icon="$p->icon" :tint="$p->tint" :label="$p->label" />
+                    <x-product-card :href="route('products.show', $p->slug)" :name="$p->name" :price="$p->price" :original-price="$p->original" :rating="$p->rating" :reviews="$p->reviews" :icon="$p->icon" :image="$p->image ?? null" :tint="$p->tint" :label="$p->label" />
                 @endforeach
                 <div class="flex flex-col justify-center rounded-xl border border-dashed border-neutral-300 bg-white/60 p-6 text-center">
                     <span class="mx-auto mb-3 flex size-12 items-center justify-center rounded-full bg-primary-100 text-primary-700">

@@ -148,15 +148,33 @@ const bindQuickView = () => {
     const open = (trigger) => {
         const visual = $('[data-qv-visual]');
         const iconWrap = $('[data-qv-icon]', visual) || null;
-        const sourceIconSvg = trigger?.closest('article')?.querySelector('svg');
+        const imgEl = $('[data-qv-img]', visual);
+        const sourceIconSvg = trigger?.closest('article')?.querySelector('svg:not([data-quick-view-open])');
         const iconSvg = sourceIconSvg?.cloneNode(true);
 
-        if (visual && iconWrap) {
+        if (imgEl) {
+            if (trigger?.dataset.image) {
+                imgEl.src = trigger.dataset.image;
+                imgEl.alt = trigger.dataset.name || '';
+                imgEl.classList.remove('hidden');
+                if (iconWrap) iconWrap.classList.add('hidden');
+            } else {
+                imgEl.classList.add('hidden');
+                imgEl.removeAttribute('src');
+                if (iconWrap) iconWrap.classList.remove('hidden');
+            }
+        }
+
+        if (visual && iconWrap && iconSvg && !trigger?.dataset.image) {
             iconWrap.replaceWith(iconSvg);
             iconSvg.classList.add('size-16', 'opacity-70');
         }
-        if (visual && tints[trigger?.dataset.tint]) {
-            visual.className = `flex aspect-[4/3] items-center justify-center rounded-xl sm:aspect-auto sm:h-full sm:min-h-56 ${tints[trigger.dataset.tint]}`;
+        if (visual) {
+            if (trigger?.dataset.image) {
+                visual.className = 'flex aspect-[4/3] items-center justify-center overflow-hidden rounded-xl sm:aspect-auto sm:h-full sm:min-h-56 bg-neutral-50';
+            } else if (tints[trigger?.dataset.tint]) {
+                visual.className = `flex aspect-[4/3] items-center justify-center overflow-hidden rounded-xl sm:aspect-auto sm:h-full sm:min-h-56 ${tints[trigger.dataset.tint]}`;
+            }
         }
 
         if (trigger) {
